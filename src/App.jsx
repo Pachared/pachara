@@ -8,12 +8,15 @@ import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import LoadingOverlay from "./style/LoadingOverlay";
+import { useSmoothScroll } from "./hooks/useSmoothScroll";
 
 const StarsCanvas = lazy(() => import("./style/StarsBackground"));
 
 const App = () => {
   const [loading, setLoading] = useState(true);
   const [useWebGlBackground, setUseWebGlBackground] = useState(false);
+
+  useSmoothScroll(!loading);
 
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 2400);

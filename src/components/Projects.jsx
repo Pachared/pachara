@@ -16,6 +16,7 @@ const CATS = ["All", "Web", "Frontend", "Backend", "Fullstack", "Desktop"];
 
 const ProjectStackCard = ({ project, index, total }) => {
   const stackOffset = Math.min(index, 7) * 28;
+  const shouldLoadEarly = index < 2;
 
   return (
     <article
@@ -23,15 +24,17 @@ const ProjectStackCard = ({ project, index, total }) => {
         top: `calc(5rem + ${stackOffset}px)`,
         zIndex: total + index,
       }}
-      className="project-stack-card sticky mb-24 overflow-hidden rounded-3xl border border-white/15 bg-black/80 shadow-2xl shadow-black/50 backdrop-blur-xl sm:mb-28 lg:mb-32"
+      className="project-stack-card sticky mb-24 overflow-hidden rounded-3xl border border-white/15 bg-black/90 shadow-xl shadow-black/40 backdrop-blur-md transform-gpu will-change-transform sm:mb-28 lg:mb-32"
     >
-      <div className="grid min-h-[620px] grid-cols-1 lg:min-h-[520px] lg:grid-cols-[1.05fr_0.95fr]">
+      <div className="project-stack-card-inner grid min-h-[620px] grid-cols-1 lg:min-h-[520px] lg:grid-cols-[1.05fr_0.95fr]">
         <div className="relative min-h-[300px] overflow-hidden lg:min-h-full">
           <img
             src={project.image}
             alt={project.name}
-            className="absolute inset-0 h-full w-full object-cover"
-            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover transform-gpu"
+            loading={shouldLoadEarly ? "eager" : "lazy"}
+            decoding="async"
+            fetchPriority={shouldLoadEarly ? "high" : "auto"}
           />
           <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent lg:bg-linear-to-r lg:from-transparent lg:via-black/10 lg:to-black/80" />
           <div className="absolute left-5 top-5 rounded-full border border-white/15 bg-black/50 px-4 py-1 text-xs font-semibold text-white/80 backdrop-blur-md">
@@ -100,16 +103,17 @@ const Projects = () => {
   useGSAP(
     () => {
       const cards = gsap.utils.toArray(".project-stack-card");
+      const cardBodies = gsap.utils.toArray(".project-stack-card-inner");
 
-      cards.forEach((card) => {
-        gsap.from(card, {
+      cardBodies.forEach((cardBody) => {
+        gsap.from(cardBody, {
           autoAlpha: 0,
-          y: 72,
-          duration: 0.75,
+          y: 44,
+          duration: 0.6,
           ease: "power3.out",
           immediateRender: false,
           scrollTrigger: {
-            trigger: card,
+            trigger: cardBody,
             start: "top 88%",
             once: true,
           },
@@ -118,14 +122,14 @@ const Projects = () => {
 
       cards.forEach((card) => {
         gsap.to(card, {
-          scale: 0.97,
-          autoAlpha: 0.95,
+          scale: 0.985,
           ease: "none",
           scrollTrigger: {
             trigger: card,
             start: "top 5rem",
             end: "bottom 5rem",
-            scrub: true,
+            scrub: 0.6,
+            invalidateOnRefresh: true,
           },
         });
       });
