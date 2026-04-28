@@ -12,10 +12,6 @@ const fadeUp = {
 function Footer() {
   const year = new Date().getFullYear();
 
-  const goTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <footer className="w-full px-4 pt-16 pb-10 text-white">
       <div className="mx-auto max-w-7xl">

@@ -1,72 +1,73 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
 import { SOCIAL_MEDIA_LINKS } from "../constants/ContactConstants";
-
-const fadeUpCustom = {
-    hidden: (i) => ({ opacity: 0, y: 30 }),
-    visible: (i) => ({
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.6, ease: "easeOut", delay: i * 0.1 },
-    }),
-};
+import { gsap, useGSAP } from "../lib/gsap";
 
 const Contact = () => {
+    const contactRef = useRef(null);
+
+    useGSAP(
+        () => {
+            const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (prefersReducedMotion) return;
+
+            gsap.from(".contact-reveal", {
+                autoAlpha: 0,
+                y: 34,
+                duration: 0.65,
+                ease: "power3.out",
+                stagger: 0.1,
+                scrollTrigger: {
+                    trigger: contactRef.current,
+                    start: "top 78%",
+                    once: true,
+                },
+            });
+
+            gsap.from(".contact-icon", {
+                autoAlpha: 0,
+                y: 20,
+                scale: 0.82,
+                duration: 0.55,
+                ease: "back.out(1.8)",
+                stagger: 0.06,
+                scrollTrigger: {
+                    trigger: ".contact-icons",
+                    start: "top 85%",
+                    once: true,
+                },
+            });
+        },
+        { scope: contactRef },
+    );
+
     return (
-        <section className="py-20 sm:py-20 bg-transparent" id="contact">
+        <section ref={contactRef} className="py-20 sm:py-20 bg-transparent" id="contact">
             <div className="max-w-xl mx-auto text-center">
-                <motion.h1
-                    custom={0}
-                    variants={fadeUpCustom}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="mb-1 text-center text-3xl sm:text-4xl lg:text-6xl font-bold"
-                >
+                <h1 className="contact-reveal mb-1 text-center text-3xl sm:text-4xl lg:text-6xl font-bold">
                     CONTACT ME
-                </motion.h1>
+                </h1>
 
-                <motion.p
-                    custom={1}
-                    variants={fadeUpCustom}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="tracking-wider text-center text-transparent font-light pb-4 sm:pb-5 bg-clip-text bg-linear-to-r from-[#ef233c] to-[#f9bec7] text-base sm:text-lg"
-                >
+                <p className="contact-reveal tracking-wider text-center text-transparent font-light pb-4 sm:pb-5 bg-clip-text bg-linear-to-r from-[#ef233c] to-[#f9bec7] text-base sm:text-lg">
                     ดูรายละเอียดเพิ่มเติม
-                </motion.p>
+                </p>
 
-                <motion.p
-                    custom={2}
-                    variants={fadeUpCustom}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="text-sm sm:text-base text-gray-400 mb-6 sm:px-0 leading-relaxed"
-                >
+                <p className="contact-reveal text-sm sm:text-base text-gray-400 mb-6 sm:px-0 leading-relaxed">
                     หากคุณสนใจร่วมงาน หรืออยากพูดคุยเพิ่มเติมสามารถติดต่อผมได้ผ่านช่องทางโซเชียลมีเดียด้านล่างนี้ยินดีพูดคุยและแลกเปลี่ยนไอเดียครับ
-                </motion.p>
+                </p>
 
-                <motion.div
-                    custom={3}
-                    variants={fadeUpCustom}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="flex flex-wrap justify-center gap-4 sm:gap-6"
-                >
+                <div className="contact-icons flex flex-wrap justify-center gap-4 sm:gap-6">
                     {SOCIAL_MEDIA_LINKS.map((link, index) => (
                         <a
                             key={index}
                             href={link.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="border border-white/30 backdrop-blur-md p-3 sm:p-4 rounded-4xl text-white transition-colors shadow-lg hover:scale-105 transform duration-200"
+                            className="contact-icon border border-white/15 backdrop-blur-md p-3 sm:p-4 rounded-4xl text-white transition-colors shadow-lg hover:scale-110 transform duration-200"
                         >
                             {link.icon}
                         </a>
                     ))}
-                </motion.div>
+                </div>
             </div>
         </section>
     );

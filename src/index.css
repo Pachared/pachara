@@ -8,8 +8,33 @@ body {
     margin: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+    overscroll-behavior-y: none;
+}
+
 body {
     font-family: "Noto Sans Thai", "Noto Sans", sans-serif;
     background: #000000;
     color: #ffffff;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(circle at 15% 20%, rgb(255 255 255 / 0.45) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 75% 30%, rgb(255 255 255 / 0.35) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 45% 70%, rgb(255 255 255 / 0.3) 0 1px, transparent 1.5px);
+    background-size: 120px 120px, 180px 180px, 220px 220px;
+    z-index: 1;
+}
+
+@media (min-width: 768px) {
+    body::before {
+        display: none;
+    }
 }

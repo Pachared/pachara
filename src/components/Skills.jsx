@@ -1,29 +1,13 @@
+import { useRef } from "react";
 import { SKILLS } from "../constants/SkillsConstants";
 import { TOOLS } from "../constants/SkillsConstants";
 import { DATABASES } from "../constants/SkillsConstants";
 import { CLOUDS } from "../constants/SkillsConstants";
 import { motion } from "framer-motion";
-
-const floatingVariants = (index) => {
-  const amplitude = 2 + index * 1;
-  const duration = 6 + index * 4;
-
-  return {
-    initial: { y: -amplitude },
-    animate: {
-      y: [-amplitude, amplitude, -amplitude],
-      transition: {
-        duration: duration,
-        ease: "easeInOut",
-        repeat: 3,
-        repeatType: "reverse",
-      },
-    },
-  };
-};
+import { gsap, useGSAP } from "../lib/gsap";
 
 const fadeUpCustom = {
-  hidden: (i) => ({ opacity: 0, y: 30 }),
+  hidden: () => ({ opacity: 0, y: 30 }),
   visible: (i) => ({
     opacity: 1,
     y: 0,
@@ -32,33 +16,99 @@ const fadeUpCustom = {
 };
 
 const AnimatedItemGroup = ({ data, extractItems }) => (
-  <div className="flex flex-wrap items-center justify-center gap-8 pt-2">
+  <div className="skill-group flex flex-wrap items-center justify-center gap-8 pt-2">
     {data.map((item, index) => (
-      <motion.div
+      <div
         key={index}
-        variants={floatingVariants(index)}
-        initial="initial"
-        animate="animate"
-        whileHover={{ scale: 1.1 }}
-        className="rounded-3xl pl-3 pr-3 flex flex-col items-center"
+        className="skill-icon rounded-3xl pl-3 pr-3 flex flex-col items-center transition-transform duration-300 hover:scale-110"
       >
         {extractItems(item).map((content, i) => (
           <div
             key={i}
-            className="flex items-center justify-center"
+            className="skill-icon-body flex items-center justify-center"
             aria-label={`Item icon`}
           >
             {content}
           </div>
         ))}
-      </motion.div>
+      </div>
     ))}
   </div>
 );
 
 const Skills = () => {
+  const skillsRef = useRef(null);
+
+  useGSAP(
+    () => {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReducedMotion) return;
+
+      gsap.utils.toArray(".skill-group").forEach((group) => {
+        const icons = gsap.utils.toArray(group.querySelectorAll(".skill-icon"));
+        const iconBodies = gsap.utils.toArray(group.querySelectorAll(".skill-icon-body"));
+
+        gsap.fromTo(
+          icons,
+          {
+            x: (index) => {
+              const direction = index % 2 === 0 ? -1 : 1;
+              return direction * (24 + (index % 4) * 10);
+            },
+            y: (index) => {
+              const direction = index % 3 === 0 ? -1 : 1;
+              return direction * (18 + (index % 5) * 7);
+            },
+            rotation: (index) => (index % 2 === 0 ? -1 : 1) * (4 + (index % 3) * 2),
+            autoAlpha: 0,
+            filter: "blur(6px)",
+            scale: 0.9,
+          },
+          {
+            x: 0,
+            y: 0,
+            rotation: 0,
+            autoAlpha: 1,
+            filter: "blur(0px)",
+            scale: 1,
+            duration: 0.9,
+            ease: "expo.out",
+            stagger: {
+              each: 0.035,
+              from: "center",
+            },
+            clearProps: "transform,filter,opacity,visibility",
+            scrollTrigger: {
+              trigger: group,
+              start: "top 82%",
+              once: true,
+            },
+          },
+        );
+
+        gsap.to(iconBodies, {
+          y: -4,
+          duration: 2.4,
+          delay: 0.95,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          stagger: {
+            each: 0.12,
+            from: "random",
+          },
+        });
+      });
+    },
+    { scope: skillsRef },
+  );
+
   return (
-    <section className="relative mx-auto w-full max-w-4xl flex flex-col pt-20 overflow-visible" id="skills">
+    <section
+      ref={skillsRef}
+      className="relative mx-auto w-full max-w-4xl flex flex-col pt-20 overflow-visible"
+      id="skills"
+    >
       {/* SKILL */}
       <motion.h1
         custom={0}

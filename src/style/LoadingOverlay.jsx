@@ -4,15 +4,19 @@ import { useEffect } from "react";
 export default function LoadingOverlay({ open }) {
   useEffect(() => {
     const prevent = (e) => e.preventDefault();
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
 
     if (open) {
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
       window.addEventListener("wheel", prevent, { passive: false });
       window.addEventListener("touchmove", prevent, { passive: false });
     }
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
       window.removeEventListener("wheel", prevent);
       window.removeEventListener("touchmove", prevent);
     };

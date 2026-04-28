@@ -1,59 +1,54 @@
+import { useRef } from "react";
 import { ABOUT } from "../constants/AboutConstants";
-import { motion } from "framer-motion";
-
-const fadeUpCustom = {
-  hidden: (i) => ({ opacity: 0, y: 30 }),
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut", delay: i * 0.1 },
-  }),
-};
+import { gsap, useGSAP } from "../lib/gsap";
 
 const About = () => {
+  const aboutRef = useRef(null);
+
+  useGSAP(
+    () => {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReducedMotion) return;
+
+      gsap.from(".about-reveal", {
+        autoAlpha: 0,
+        y: 34,
+        duration: 0.65,
+        ease: "power3.out",
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: aboutRef.current,
+          start: "top 76%",
+          once: true,
+        },
+      });
+    },
+    { scope: aboutRef },
+  );
+
   return (
-    <section className="flex max-w-4xl flex-col pt-20" id="about">
+    <section ref={aboutRef} className="flex max-w-4xl flex-col pt-20" id="about">
       {/* ABOUT ME */}
-      <motion.h2
-        custom={0}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="mb-1 text-center text-3xl sm:text-4xl lg:text-6xl font-bold"
-      >
+      <h2 className="about-reveal mb-1 text-center text-3xl sm:text-4xl lg:text-6xl font-bold">
         ABOUT ME
-      </motion.h2>
+      </h2>
 
       {/* ดูรายละเอียดเพิ่มเติม */}
-      <motion.p
-        custom={1}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="tracking-[0.15em] text-center text-transparent font-light pb-5 bg-clip-text bg-linear-to-r from-[#ef233c] to-[#f9bec7] text-base sm:text-lg"
-      >
+      <p className="about-reveal tracking-[0.15em] text-center text-transparent font-light pb-5 bg-clip-text bg-linear-to-r from-[#ef233c] to-[#f9bec7] text-base sm:text-lg">
         ดูรายละเอียดเพิ่มเติม
-      </motion.p>
+      </p>
 
       {/* เนื้อหา ABOUT */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
+      <div>
         {ABOUT.map((text, index) => (
-          <motion.p
+          <p
             key={index}
-            custom={index + 2} // เริ่ม delay ต่อจาก h2 และ p ด้านบน
-            variants={fadeUpCustom}
-            className="mb-4 text-xs sm:text-sm md:text-base font-light"
+            className="about-reveal mb-4 text-xs sm:text-sm md:text-base font-light"
           >
             {text}
-          </motion.p>
+          </p>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 };

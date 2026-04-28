@@ -1,20 +1,19 @@
-import { useEffect, useRef, useState } from "react";
-import Lenis from "lenis";
+import { lazy, Suspense, useEffect, useState } from "react";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import About from "./components/About";
-import Education from "./components/Education";
+import AboutEducation from "./components/AboutEducation";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import StarsCanvas from "./style/StarsBackground";
 import LoadingOverlay from "./style/LoadingOverlay";
+
+const StarsCanvas = lazy(() => import("./style/StarsBackground"));
 
 const App = () => {
   const [loading, setLoading] = useState(true);
-  const lenisRef = useRef(null);
+  const [useWebGlBackground, setUseWebGlBackground] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => setLoading(false), 1500);
@@ -22,36 +21,14 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 3.0,
-      easing: (t) => 1 - Math.pow(1 - t, 4),
-      smoothWheel: true,
-      smoothTouch: false,
-    });
+    const media = window.matchMedia("(min-width: 768px) and (prefers-reduced-motion: no-preference)");
+    const updateBackgroundMode = () => setUseWebGlBackground(media.matches);
 
-    lenisRef.current = lenis;
+    updateBackgroundMode();
+    media.addEventListener("change", updateBackgroundMode);
 
-    let rafId = 0;
-    const raf = (time) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    };
-    rafId = requestAnimationFrame(raf);
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-      lenisRef.current = null;
-    };
+    return () => media.removeEventListener("change", updateBackgroundMode);
   }, []);
-
-  useEffect(() => {
-    const lenis = lenisRef.current;
-    if (!lenis) return;
-
-    if (loading) lenis.stop();
-    else lenis.start();
-  }, [loading]);
 
   const handleReset = () => {
     setLoading(true);
@@ -59,16 +36,19 @@ const App = () => {
   };
 
   return (
-    <div className="relative bg-fixed bg-cover bg-center bg-img">
+    <div className="relative bg-cover bg-center bg-img">
       <LoadingOverlay open={loading} />
 
-      <StarsCanvas />
+      {!loading && useWebGlBackground && (
+        <Suspense fallback={null}>
+          <StarsCanvas />
+        </Suspense>
+      )}
 
       <div className="relative z-10 flex flex-col items-center p-6 container mx-auto">
         <Navbar onReset={handleReset} />
         <Hero />
-        <About />
-        <Education />
+        <AboutEducation />
         <Projects />
         <Skills />
         <Contact />

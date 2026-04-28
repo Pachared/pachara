@@ -18,26 +18,10 @@ export const PROJECTS = [
     image: PORTFOLIO,
     githubLink: "https://github.com/Pachared/pachara",
     stackIcons: [
-      <img
-        src="/image/skills/react_dark.svg"
-        alt="React"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/tailwindcss.svg"
-        alt="tailwindcss"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/motion_dark.svg"
-        alt="motion"
-        className="w-10 sm:w-10 md:w-12.5 lg:w-13.75 xl:w-15"
-      />,
-      <img
-        src="/image/skills/vercel_dark.svg"
-        alt="vercel"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
+      { src: "/image/skills/react_dark.svg", alt: "React", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/tailwindcss.svg", alt: "tailwindcss", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/motion_dark.svg", alt: "motion", className: "w-10 sm:w-10 md:w-12.5 lg:w-13.75 xl:w-15" },
+      { src: "/image/skills/vercel_dark.svg", alt: "vercel", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
     ],
   },
   {
@@ -49,26 +33,10 @@ export const PROJECTS = [
     image: ECOMMERCE,
     githubLink: "https://github.com/Pachared/melgeeks_shop",
     stackIcons: [
-      <img
-        src="/image/skills/php_dark.svg"
-        alt="php"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/html5.svg"
-        alt="html5"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/css.svg"
-        alt="css"
-        className="w-10 sm:w-10 md:w-12.5 lg:w-13.75 xl:w-15"
-      />,
-      <img
-        src="/image/skills/javascript.svg"
-        alt="javascript"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
+      { src: "/image/skills/php_dark.svg", alt: "php", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/html5.svg", alt: "html5", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/css.svg", alt: "css", className: "w-10 sm:w-10 md:w-12.5 lg:w-13.75 xl:w-15" },
+      { src: "/image/skills/javascript.svg", alt: "javascript", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
     ],
   },
   {
@@ -80,11 +48,7 @@ export const PROJECTS = [
     image: PIVOTZONE,
     githubLink: "https://github.com/Pachared/PivotZone",
     stackIcons: [
-      <img
-        src="/image/skills/python.svg"
-        alt="python"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
+      { src: "/image/skills/python.svg", alt: "python", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
     ],
   },
   {
@@ -96,41 +60,13 @@ export const PROJECTS = [
     image: StoreManagementSystemSCI_NEXT,
     githubLink: "https://github.com/Pachared/sci-stock-app",
     stackIcons: [
-      <img
-        src="/image/skills/react_dark.svg"
-        alt="React"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/tailwindcss.svg"
-        alt="tailwindcss"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/golang_dark.svg"
-        alt="golang"
-        className="w-10 sm:w-10 md:w-12.5 lg:w-13.75 xl:w-15"
-      />,
-      <img
-      src="/image/skills/materialui.svg"
-      alt="materialui"
-      className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-      src="/image/skills/mysql-wordmark-dark.svg"
-      alt="mysql"
-      className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-      src="/image/skills/railway_dark.svg"
-      alt="railway"
-      className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/vercel_dark.svg"
-        alt="vercel"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
+      { src: "/image/skills/react_dark.svg", alt: "React", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/tailwindcss.svg", alt: "tailwindcss", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/golang_dark.svg", alt: "golang", className: "w-10 sm:w-10 md:w-12.5 lg:w-13.75 xl:w-15" },
+      { src: "/image/skills/materialui.svg", alt: "materialui", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/mysql-wordmark-dark.svg", alt: "mysql", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/railway_dark.svg", alt: "railway", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/vercel_dark.svg", alt: "vercel", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
     ],
   },
   {
@@ -142,46 +78,14 @@ export const PROJECTS = [
     image: Novacloud,
     githubLink: "https://github.com/Pachared/Nova",
     stackIcons: [
-      <img
-        src="/image/skills/react_dark.svg"
-        alt="React"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/tailwindcss.svg"
-        alt="tailwindcss"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/motion_dark.svg"
-        alt="motion"
-        className="w-10 sm:w-10 md:w-12.5 lg:w-13.75 xl:w-15"
-      />,
-      <img
-      src="/image/skills/golang_dark.svg"
-      alt="golang"
-      className="w-10 sm:w-10 md:w-12.5 lg:w-13.75 xl:w-15"
-      />,
-      <img
-      src="/image/skills/materialui.svg"
-      alt="materialui"
-      className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-      src="/image/skills/mysql-wordmark-dark.svg"
-      alt="mysql"
-      className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-      src="/image/skills/vercel_dark.svg"
-      alt="vercel"
-      className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/railway_dark.svg"
-        alt="railway"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
+      { src: "/image/skills/react_dark.svg", alt: "React", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/tailwindcss.svg", alt: "tailwindcss", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/motion_dark.svg", alt: "motion", className: "w-10 sm:w-10 md:w-12.5 lg:w-13.75 xl:w-15" },
+      { src: "/image/skills/golang_dark.svg", alt: "golang", className: "w-10 sm:w-10 md:w-12.5 lg:w-13.75 xl:w-15" },
+      { src: "/image/skills/materialui.svg", alt: "materialui", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/mysql-wordmark-dark.svg", alt: "mysql", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/vercel_dark.svg", alt: "vercel", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/railway_dark.svg", alt: "railway", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
     ],
   },
   {
@@ -193,31 +97,11 @@ export const PROJECTS = [
     image: RedisDashboard,
     githubLink: "https://github.com/Pachared/Next-Redis-App",
     stackIcons: [
-      <img
-        src="/image/skills/nextjs_icon_dark.svg"
-        alt="nextjs"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/tailwindcss.svg"
-        alt="tailwindcss"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/typescript.svg"
-        alt="typescript"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/redis.svg"
-        alt="redis"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/docker.svg"
-        alt="docker"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
+      { src: "/image/skills/nextjs_icon_dark.svg", alt: "nextjs", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/tailwindcss.svg", alt: "tailwindcss", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/typescript.svg", alt: "typescript", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/redis.svg", alt: "redis", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/docker.svg", alt: "docker", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
     ],
   },
   {
@@ -229,51 +113,15 @@ export const PROJECTS = [
     image: RentFlow,
     githubLink: "https://github.com/fulltank-garage/RentFlow-Web-App",
     stackIcons: [
-      <img
-        src="/image/skills/nextjs_icon_dark.svg"
-        alt="nextjs"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/tailwindcss.svg"
-        alt="tailwindcss"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/materialui.svg"
-        alt="materialui"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/typescript.svg"
-        alt="typescript"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/redis.svg"
-        alt="redis"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/golang_dark.svg"
-        alt="golang"
-        className="w-10 sm:w-10 md:w-12.5 lg:w-13.75 xl:w-15"
-      />,
-      <img
-      src="/image/skills/mysql-wordmark-dark.svg"
-      alt="mysql"
-      className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/railway_dark.svg"
-        alt="railway"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/vercel_dark.svg"
-        alt="vercel"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
+      { src: "/image/skills/nextjs_icon_dark.svg", alt: "nextjs", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/tailwindcss.svg", alt: "tailwindcss", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/materialui.svg", alt: "materialui", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/typescript.svg", alt: "typescript", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/redis.svg", alt: "redis", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/golang_dark.svg", alt: "golang", className: "w-10 sm:w-10 md:w-12.5 lg:w-13.75 xl:w-15" },
+      { src: "/image/skills/mysql-wordmark-dark.svg", alt: "mysql", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/railway_dark.svg", alt: "railway", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/vercel_dark.svg", alt: "vercel", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
     ],
   },
   {
@@ -285,31 +133,11 @@ export const PROJECTS = [
     image: DocumentSemina,
     githubLink: "https://github.com/Pachared/Document-seminar",
     stackIcons: [
-      <img
-        src="/image/skills/react_dark.svg"
-        alt="nextjs"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/tailwindcss.svg"
-        alt="tailwindcss"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/reactrouter.svg"
-        alt="reactrouter"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/motion_dark.svg"
-        alt="motion"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/vercel_dark.svg"
-        alt="vercel"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
+      { src: "/image/skills/react_dark.svg", alt: "nextjs", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/tailwindcss.svg", alt: "tailwindcss", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/reactrouter.svg", alt: "reactrouter", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/motion_dark.svg", alt: "motion", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/vercel_dark.svg", alt: "vercel", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
     ],
   },
   {
@@ -321,31 +149,11 @@ export const PROJECTS = [
     image: SCISTOCKAPI,
     githubLink: "https://github.com/Pachared/sci-stock-api",
     stackIcons: [
-      <img
-        src="/image/skills/golang_dark.svg"
-        alt="nextjs"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/redis.svg"
-        alt="tailwindcss"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/mysql-wordmark-dark.svg"
-        alt="reactrouter"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/jwt.svg"
-        alt="jwt"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
-      <img
-        src="/image/skills/railway_dark.svg"
-        alt="vercel"
-        className="w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5"
-      />,
+      { src: "/image/skills/golang_dark.svg", alt: "nextjs", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/redis.svg", alt: "tailwindcss", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/mysql-wordmark-dark.svg", alt: "reactrouter", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/jwt.svg", alt: "jwt", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
+      { src: "/image/skills/railway_dark.svg", alt: "vercel", className: "w-7.5 sm:w-7.5 md:w-10 lg:w-11.25 xl:w-12.5" },
     ],
   },
 ];

@@ -1,91 +1,73 @@
-import { useInView } from "react-intersection-observer";
+import { useRef } from "react";
 import { HERO } from "../constants/HeroConstants";
 import pachara from "/pachara.jpg";
-import { motion } from "framer-motion";
-
-const fadeUpCustom = {
-  hidden: (i) => ({ opacity: 0, y: 30 }),
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut", delay: i * 0.1 },
-  }),
-};
-
-const imageCustom = {
-  hidden: { scale: 0.8, opacity: 0 },
-  visible: {
-    scale: 1,
-    opacity: 1,
-    transition: { duration: 0.6, ease: "easeOut", delay: 4 * 0.1 },
-  },
-};
+import { gsap, useGSAP } from "../lib/gsap";
 
 const Hero = () => {
-  const { ref: heroRef, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const heroRef = useRef(null);
+
+  useGSAP(
+    () => {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReducedMotion) return;
+
+      gsap
+        .timeline({ defaults: { ease: "power3.out" } })
+        .from(".hero-copy", {
+          autoAlpha: 0,
+          y: 42,
+          duration: 0.75,
+          stagger: 0.12,
+        })
+        .from(
+          ".hero-image",
+          {
+            autoAlpha: 0,
+            scale: 0.92,
+            y: 34,
+            duration: 0.85,
+          },
+          "-=0.45",
+        );
+    },
+    { scope: heroRef },
+  );
 
   return (
-    <section className="flex flex-wrap min-h-screen items-center px-4 py-10 md:px-16 lg:px-24">
+    <section
+      ref={heroRef}
+      className="flex flex-wrap min-h-screen items-center px-4 py-10 md:px-16 lg:px-24"
+    >
       {/* Text Content */}
-      <div className="w-full md:w-1/2" ref={heroRef}>
-        <motion.h2
-          custom={0}
-          variants={fadeUpCustom}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="mb-4 p-1 text-6xl sm:text-6xl md:text-5xl lg:text-7xl xl:text-8xl font-extrabold leading-tight"
-        >
+      <div className="w-full md:w-1/2">
+        <h2 className="hero-copy mb-4 p-1 text-6xl sm:text-6xl md:text-5xl lg:text-7xl xl:text-8xl font-extrabold leading-tight">
           {HERO.name}
-        </motion.h2>
+        </h2>
 
-        <motion.span
-          custom={1}
-          variants={fadeUpCustom}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="block p-2 mb-6 text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-semibold bg-linear-to-r from-[#ef233c] to-[#f9bec7] bg-clip-text text-transparent"
-        >
+        <span className="hero-copy block p-2 mb-6 text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-semibold bg-linear-to-r from-[#ef233c] to-[#f9bec7] bg-clip-text text-transparent">
           {HERO.greet3}
-        </motion.span>
+        </span>
 
-        <motion.p
-          custom={2}
-          variants={fadeUpCustom}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="p-2 mb-8 text-xs sm:text-sm md:text-base max-w-md md:max-w-lg font-light leading-relaxed"
-        >
+        <p className="hero-copy p-2 mb-8 text-xs sm:text-sm md:text-base max-w-md md:max-w-lg font-light leading-relaxed">
           {HERO.description}
-        </motion.p>
+        </p>
 
-        <motion.div
-          custom={3}
-          variants={fadeUpCustom}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="p-2 flex flex-col gap-4 sm:flex-row sm:items-center"
-        >
+        <div className="hero-copy p-2 flex flex-col gap-4 sm:flex-row sm:items-center">
           <button
             onClick={() => window.open("/Resume-Pachara.pdf", "_blank")}
-            className="z-1 hover:bg-white rounded-xl text-white font-semibold hover:text-black py-3 px-8 md:px-10 border border-white/30 hover:border-transparent transition-colors duration-300 cursor-pointer"
+            className="z-1 hover:bg-white rounded-xl text-white font-semibold hover:text-black py-3 px-8 md:px-10 border border-white/15 transition-colors duration-300 cursor-pointer"
           >
             ดาวน์โหลด Resume
           </button>
-        </motion.div>
+        </div>
       </div>
 
       {/* Image Content */}
       <div className="w-full md:w-1/2 mt-10 md:mt-0 flex justify-center md:justify-end">
-        <motion.img
-          variants={imageCustom}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+        <img
           src={pachara}
           alt="pachara"
-          className="rounded-3xl w-75 sm:w-87.5 md:w-100 lg:w-125 object-cover"
+          className="hero-image rounded-3xl w-75 sm:w-87.5 md:w-100 lg:w-125 object-cover"
         />
       </div>
     </section>

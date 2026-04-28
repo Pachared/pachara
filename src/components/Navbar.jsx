@@ -14,11 +14,14 @@ const Navbar = () => {
 
   const handleLinkClick = (e, href) => {
     e.preventDefault();
-    const targetElement = document.querySelector(href);
+    const isDesktopEducation = href === "#education" && window.matchMedia("(min-width: 768px)").matches;
+    const targetElement = document.querySelector(isDesktopEducation ? "#about" : href);
+
     if (targetElement) {
       const offset = -25;
       const elementPosition = targetElement.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY + offset;
+      const educationOffset = isDesktopEducation ? window.innerHeight * 1.1 : 0;
+      const offsetPosition = elementPosition + window.scrollY + offset + educationOffset;
 
       window.scrollTo({
         top: offsetPosition,
@@ -33,7 +36,7 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <div
           className="mx-auto hidden max-w-2xl items-center justify-center
-        rounded-lg border border-stone-50/30 bg-black/20 py-3 backdrop-blur-lg lg:flex"
+        rounded-lg border border-white/15 bg-black/20 py-3 backdrop-blur-lg lg:flex"
         >
           <div className="flex items-center justify-between gap-6">
             <div>
