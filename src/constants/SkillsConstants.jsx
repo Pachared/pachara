@@ -353,17 +353,17 @@ export const DATABASES = [
   //   name: "SQL Server",
   //   experience: "",
   // },
-  // {
-  //   database: (
-  //     <img
-  //       src="/image/skills/postgresql.svg"
-  //       alt="PostgreSQL"
-  //       className="w-[50px] sm:w-[50px] md:w-[60px] lg:w-[75px] xl:w-[85px]"
-  //     />
-  //   ),
-  //   name: "PostgreSQL",
-  //   experience: "",
-  // },
+  {
+    database: (
+      <img
+        src="/image/skills/postgresql.svg"
+        alt="PostgreSQL"
+        className="w-[50px] sm:w-[50px] md:w-[60px] lg:w-[75px] xl:w-[85px]"
+      />
+    ),
+    name: "PostgreSQL",
+    experience: "",
+  },
   {
     database: (
       <img
