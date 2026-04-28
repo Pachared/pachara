@@ -1,13 +1,16 @@
 import { useRef } from "react";
+import { motion } from "framer-motion";
 import { HERO } from "../constants/HeroConstants";
 import pachara from "/pachara.jpg";
 import { gsap, useGSAP } from "../lib/gsap";
 
-const Hero = () => {
+const Hero = ({ introDone }) => {
   const heroRef = useRef(null);
 
   useGSAP(
     () => {
+      if (!introDone) return;
+
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (prefersReducedMotion) return;
 
@@ -30,7 +33,7 @@ const Hero = () => {
           "-=0.45",
         );
     },
-    { scope: heroRef },
+    { scope: heroRef, dependencies: [introDone] },
   );
 
   return (
@@ -40,35 +43,50 @@ const Hero = () => {
     >
       {/* Text Content */}
       <div className="w-full md:w-1/2">
-        <h2 className="hero-copy mb-4 p-1 text-6xl sm:text-6xl md:text-5xl lg:text-7xl xl:text-8xl font-extrabold leading-tight">
-          {HERO.name}
-        </h2>
-
-        <span className="hero-copy block p-2 mb-6 text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-semibold bg-linear-to-r from-[#ef233c] to-[#f9bec7] bg-clip-text text-transparent">
-          {HERO.greet3}
-        </span>
-
-        <p className="hero-copy p-2 mb-8 text-xs sm:text-sm md:text-base max-w-md md:max-w-lg font-light leading-relaxed">
-          {HERO.description}
-        </p>
-
-        <div className="hero-copy p-2 flex flex-col gap-4 sm:flex-row sm:items-center">
-          <button
-            onClick={() => window.open("/Resume-Pachara.pdf", "_blank")}
-            className="z-1 hover:bg-white rounded-xl text-white font-semibold hover:text-black py-3 px-8 md:px-10 border border-white/15 transition-colors duration-300 cursor-pointer"
-          >
-            ดาวน์โหลด Resume
-          </button>
+        <div className="mb-4 flex h-24 items-center sm:h-28 md:h-24 lg:h-32 xl:h-36">
+          {introDone && (
+            <motion.img
+              layoutId="pachara-logo"
+              src="/Pachara.png"
+              alt={HERO.name}
+              className="h-auto w-full max-w-[18rem] object-contain sm:max-w-[24rem] md:max-w-[22rem] lg:max-w-[31rem] xl:max-w-[37rem]"
+              draggable={false}
+              transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
+            />
+          )}
         </div>
+
+        {introDone && (
+          <>
+            <span className="hero-copy block p-2 mb-6 text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl font-semibold bg-linear-to-r from-[#ef233c] to-[#f9bec7] bg-clip-text text-transparent">
+              {HERO.greet3}
+            </span>
+
+            <p className="hero-copy p-2 mb-8 text-xs sm:text-sm md:text-base max-w-md md:max-w-lg font-light leading-relaxed">
+              {HERO.description}
+            </p>
+
+            <div className="hero-copy p-2 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <button
+                onClick={() => window.open("/Resume-Pachara.pdf", "_blank")}
+                className="z-1 hover:bg-white rounded-xl text-white font-semibold hover:text-black py-3 px-8 md:px-10 border border-white/15 transition-colors duration-300 cursor-pointer"
+              >
+                ดาวน์โหลด Resume
+              </button>
+            </div>
+          </>
+        )}
       </div>
 
       {/* Image Content */}
       <div className="w-full md:w-1/2 mt-10 md:mt-0 flex justify-center md:justify-end">
-        <img
-          src={pachara}
-          alt="pachara"
-          className="hero-image rounded-3xl w-75 sm:w-87.5 md:w-100 lg:w-125 object-cover"
-        />
+        {introDone && (
+          <img
+            src={pachara}
+            alt="pachara"
+            className="hero-image rounded-3xl w-75 sm:w-87.5 md:w-100 lg:w-125 object-cover"
+          />
+        )}
       </div>
     </section>
   );

@@ -23,24 +23,37 @@ export default function LoadingOverlay({ open }) {
   }, [open]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="popLayout">
       {open && (
         <motion.div
-          className="fixed inset-0 z-9999 flex items-center justify-center bg-black/90 backdrop-blur-sm"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[9999] flex items-center justify-center"
+          initial={false}
+          exit={{ transition: { duration: 0.95, ease: [0.22, 1, 0.36, 1] } }}
           onWheel={(e) => e.preventDefault()}
           onTouchMove={(e) => e.preventDefault()}
         >
-          <motion.img
-            src="/Pachara.png"
-            alt="Pachara"
-            className="w-70 h-70 object-contain"
-            draggable={false}
-            animate={{ scale: [0.95, 1.02, 0.95], y: [6, -2, 6] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          <motion.div
+            className="absolute inset-0 bg-black"
+            initial={false}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.5, ease: "easeInOut" } }}
           />
+
+          <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
+            <motion.img
+              layoutId="pachara-logo"
+              src="/Pachara.png"
+              alt="Pachara"
+              className="h-auto w-[16rem] object-contain sm:w-[22rem] md:w-[30rem]"
+              draggable={false}
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.85,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            />
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

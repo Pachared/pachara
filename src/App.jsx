@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from "react";
+import { LayoutGroup } from "framer-motion";
 
-import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import AboutEducation from "./components/AboutEducation";
 import Projects from "./components/Projects";
@@ -16,7 +16,7 @@ const App = () => {
   const [useWebGlBackground, setUseWebGlBackground] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 1500);
+    const t = setTimeout(() => setLoading(false), 2400);
     return () => clearTimeout(t);
   }, []);
 
@@ -30,31 +30,27 @@ const App = () => {
     return () => media.removeEventListener("change", updateBackgroundMode);
   }, []);
 
-  const handleReset = () => {
-    setLoading(true);
-    setTimeout(() => window.location.reload(), 250);
-  };
-
   return (
-    <div className="relative bg-cover bg-center bg-img">
-      <LoadingOverlay open={loading} />
+    <LayoutGroup id="pachara-intro">
+      <div className="relative bg-cover bg-center bg-img">
+        <LoadingOverlay open={loading} />
 
-      {!loading && useWebGlBackground && (
-        <Suspense fallback={null}>
-          <StarsCanvas />
-        </Suspense>
-      )}
+        {!loading && useWebGlBackground && (
+          <Suspense fallback={null}>
+            <StarsCanvas />
+          </Suspense>
+        )}
 
-      <div className="relative z-10 flex flex-col items-center p-6 container mx-auto">
-        <Navbar onReset={handleReset} />
-        <Hero />
-        <AboutEducation />
-        <Projects />
-        <Skills />
-        <Contact />
-        <Footer />
+        <div className="relative z-10 flex flex-col items-center p-6 container mx-auto">
+          <Hero introDone={!loading} />
+          <AboutEducation />
+          <Projects />
+          <Skills />
+          <Contact />
+          <Footer />
+        </div>
       </div>
-    </div>
+    </LayoutGroup>
   );
 };
 
