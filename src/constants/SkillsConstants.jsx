@@ -203,6 +203,17 @@ export const TOOLS = [
   {
     tool: (
       <img
+        src="/image/skills/Codex_dark.svg"
+        alt="Codex"
+        className="w-12.5 sm:w-12.5 md:w-15 lg:w-18.75 xl:w-21.25"
+      />
+    ),
+    name: "Codex",
+    experience: "",
+  },
+  {
+    tool: (
+      <img
         src="/image/skills/git.svg"
         alt="Git"
         className="w-12.5 sm:w-12.5 md:w-15 lg:w-18.75 xl:w-21.25"
@@ -358,7 +369,7 @@ export const DATABASES = [
       <img
         src="/image/skills/postgresql.svg"
         alt="PostgreSQL"
-        className="w-[50px] sm:w-[50px] md:w-[60px] lg:w-[75px] xl:w-[85px]"
+        className="w-12.5 sm:w-12.5 md:w-15 lg:w-18.75 xl:w-21.25"
       />
     ),
     name: "PostgreSQL",
