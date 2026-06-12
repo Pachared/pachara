@@ -1,35 +1,28 @@
 import { useRef } from "react";
 import { SOCIAL_MEDIA_LINKS } from "../constants/ContactConstants";
 import { gsap, useGSAP } from "../lib/gsap";
+import { revealInSequence, shouldReduceMotion } from "../lib/motion";
 
 const Contact = () => {
     const contactRef = useRef(null);
 
     useGSAP(
         () => {
-            const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            if (prefersReducedMotion) return;
+            if (shouldReduceMotion()) return;
 
-            gsap.from(".contact-reveal", {
-                autoAlpha: 0,
-                y: 34,
-                duration: 0.65,
-                ease: "power3.out",
-                stagger: 0.1,
-                scrollTrigger: {
-                    trigger: contactRef.current,
-                    start: "top 78%",
-                    once: true,
-                },
+            revealInSequence(gsap, ".contact-reveal", {
+                trigger: contactRef.current,
             });
 
-            gsap.from(".contact-icon", {
-                autoAlpha: 0,
-                y: 20,
-                scale: 0.82,
+            gsap.set(".contact-icon", { autoAlpha: 0, y: 20, scale: 0.82 });
+
+            gsap.to(".contact-icon", {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
                 duration: 0.55,
                 ease: "back.out(1.8)",
-                stagger: 0.06,
+                stagger: 0.08,
                 scrollTrigger: {
                     trigger: ".contact-icons",
                     start: "top 85%",
@@ -41,7 +34,7 @@ const Contact = () => {
     );
 
     return (
-        <section ref={contactRef} className="py-20 sm:py-20 bg-transparent" id="contact">
+        <section ref={contactRef} className="pt-28 pb-20 md:pt-32 bg-transparent" id="contact">
             <div className="max-w-xl mx-auto text-center">
                 <h1 className="contact-reveal mb-1 text-center text-3xl sm:text-4xl lg:text-6xl font-bold">
                     CONTACT ME

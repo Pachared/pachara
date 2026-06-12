@@ -14,14 +14,12 @@ const Navbar = () => {
 
   const handleLinkClick = (e, href) => {
     e.preventDefault();
-    const isDesktopEducation = href === "#education" && window.matchMedia("(min-width: 768px)").matches;
-    const targetElement = document.querySelector(isDesktopEducation ? "#about" : href);
+    const targetElement = document.querySelector(href);
 
     if (targetElement) {
       const offset = -25;
       const elementPosition = targetElement.getBoundingClientRect().top;
-      const educationOffset = isDesktopEducation ? window.innerHeight * 1.1 : 0;
-      const offsetPosition = elementPosition + window.scrollY + offset + educationOffset;
+      const offsetPosition = elementPosition + window.scrollY + offset;
 
       window.scrollTo({
         top: offsetPosition,

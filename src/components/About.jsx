@@ -1,26 +1,18 @@
 import { useRef } from "react";
 import { ABOUT } from "../constants/AboutConstants";
 import { gsap, useGSAP } from "../lib/gsap";
+import { revealInSequence, shouldReduceMotion } from "../lib/motion";
 
 const About = () => {
   const aboutRef = useRef(null);
 
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) return;
+      if (shouldReduceMotion()) return;
 
-      gsap.from(".about-reveal", {
-        autoAlpha: 0,
-        y: 34,
-        duration: 0.65,
-        ease: "power3.out",
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: aboutRef.current,
-          start: "top 76%",
-          once: true,
-        },
+      revealInSequence(gsap, ".about-reveal", {
+        trigger: aboutRef.current,
+        start: "top 76%",
       });
     },
     { scope: aboutRef },

@@ -1,26 +1,17 @@
 import { useRef } from "react";
 import { EDUCATION } from "../constants/EducationConstants";
 import { gsap, useGSAP } from "../lib/gsap";
+import { revealInSequence, shouldReduceMotion } from "../lib/motion";
 
 const Education = () => {
     const educationRef = useRef(null);
 
     useGSAP(
         () => {
-            const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            if (prefersReducedMotion) return;
+            if (shouldReduceMotion()) return;
 
-            gsap.from(".education-reveal", {
-                autoAlpha: 0,
-                y: 34,
-                duration: 0.65,
-                ease: "power3.out",
-                stagger: 0.1,
-                scrollTrigger: {
-                    trigger: educationRef.current,
-                    start: "top 78%",
-                    once: true,
-                },
+            revealInSequence(gsap, ".education-reveal", {
+                trigger: educationRef.current,
             });
         },
         { scope: educationRef },

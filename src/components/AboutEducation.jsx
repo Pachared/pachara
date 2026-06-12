@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { ABOUT } from "../constants/AboutConstants";
 import { EDUCATION } from "../constants/EducationConstants";
 import { gsap, useGSAP } from "../lib/gsap";
+import { revealInSequence, shouldReduceMotion } from "../lib/motion";
 
 const AboutPanel = ({ revealClass = "" }) => (
   <div className="flex h-full flex-col justify-center">
@@ -53,77 +54,30 @@ const EducationPanel = ({ revealClass = "" }) => (
 
 const AboutEducation = () => {
   const sectionRef = useRef(null);
-  const pinRef = useRef(null);
-  const trackRef = useRef(null);
 
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) return;
+      if (shouldReduceMotion()) return;
 
-      const matchMedia = gsap.matchMedia();
-
-      matchMedia.add("(min-width: 768px)", () => {
-        gsap.to(trackRef.current, {
-          xPercent: -50,
-          ease: "none",
-          scrollTrigger: {
-            trigger: pinRef.current,
-            start: "top top",
-            end: "+=110%",
-            pin: true,
-            scrub: true,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
+      gsap.utils.toArray(".about-education-panel").forEach((panel) => {
+        revealInSequence(gsap, panel.querySelectorAll(".about-education-reveal"), {
+          trigger: panel,
+          y: 32,
+          stagger: 0.08,
         });
       });
-
-      matchMedia.add("(max-width: 767px)", () => {
-        gsap.utils.toArray(".about-education-mobile article").forEach((panel) => {
-          gsap.from(panel.querySelectorAll(".mobile-reveal"), {
-            autoAlpha: 0,
-            y: 32,
-            duration: 0.65,
-            ease: "power3.out",
-            stagger: 0.08,
-            immediateRender: false,
-            scrollTrigger: {
-              trigger: panel,
-              start: "top 78%",
-              once: true,
-            },
-          });
-        });
-      });
-
-      return () => matchMedia.revert();
     },
     { scope: sectionRef },
   );
 
   return (
     <section ref={sectionRef} id="about" className="w-full pt-20">
-      <div
-        ref={pinRef}
-        className="about-education-desktop hidden min-h-screen overflow-hidden md:flex md:items-center"
-      >
-        <div ref={trackRef} className="flex w-[200%] shrink-0 will-change-transform">
-          <article className="w-1/2 shrink-0 px-2 lg:px-10">
-            <AboutPanel revealClass="about-reveal" />
-          </article>
-          <article className="w-1/2 shrink-0 px-2 lg:px-10">
-            <EducationPanel revealClass="education-reveal" />
-          </article>
-        </div>
-      </div>
-
-      <div className="about-education-mobile flex flex-col gap-20 md:hidden">
-        <article>
-          <AboutPanel revealClass="mobile-reveal" />
+      <div className="flex flex-col gap-28 md:gap-32">
+        <article className="about-education-panel px-2 lg:px-10">
+          <AboutPanel revealClass="about-education-reveal" />
         </article>
-        <article id="education">
-          <EducationPanel revealClass="mobile-reveal" />
+        <article id="education" className="about-education-panel px-2 lg:px-10">
+          <EducationPanel revealClass="about-education-reveal" />
         </article>
       </div>
     </section>

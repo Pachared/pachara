@@ -1,16 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import { PROJECTS } from "../constants/ProjectConstants";
-import { motion } from "framer-motion";
 import { gsap, useGSAP } from "../lib/gsap";
-
-const fadeUpCustom = {
-  hidden: () => ({ opacity: 0, y: 30 }),
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut", delay: i * 0.1 },
-  }),
-};
+import { revealInSequence, shouldReduceMotion } from "../lib/motion";
 
 const CATS = ["All", "Web", "Frontend", "Backend", "Fullstack", "Desktop"];
 
@@ -75,7 +66,7 @@ const ProjectStackCard = ({ project, index, total }) => {
 
 const Projects = () => {
   const [cat, setCat] = useState("All");
-  const stackRef = useRef(null);
+  const projectsRef = useRef(null);
 
   const normalized = useMemo(() => {
     return PROJECTS.map((p) => ({
@@ -95,21 +86,22 @@ const Projects = () => {
 
   useGSAP(
     () => {
+      if (shouldReduceMotion()) return;
+
+      revealInSequence(gsap, ".project-reveal", {
+        trigger: projectsRef.current,
+      });
+
       const cards = gsap.utils.toArray(".project-stack-card");
       const cardBodies = gsap.utils.toArray(".project-stack-card-inner");
 
       cardBodies.forEach((cardBody) => {
-        gsap.from(cardBody, {
-          autoAlpha: 0,
+        revealInSequence(gsap, cardBody, {
+          trigger: cardBody,
+          start: "top 88%",
           y: 44,
           duration: 0.6,
-          ease: "power3.out",
-          immediateRender: false,
-          scrollTrigger: {
-            trigger: cardBody,
-            start: "top 88%",
-            once: true,
-          },
+          stagger: 0,
         });
       });
 
@@ -127,34 +119,20 @@ const Projects = () => {
         });
       });
     },
-    { scope: stackRef, dependencies: [cat], revertOnUpdate: true },
+    { scope: projectsRef, dependencies: [cat], revertOnUpdate: true },
   );
 
   return (
-    <section className="w-full pt-20" id="projects">
-      <motion.h2
-        custom={0}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="mb-1 text-center text-3xl sm:text-4xl lg:text-6xl font-bold"
-      >
+    <section ref={projectsRef} className="w-full pt-28 md:pt-32" id="projects">
+      <h2 className="project-reveal mb-1 text-center text-3xl font-bold sm:text-4xl lg:text-6xl">
         PROJECT
-      </motion.h2>
+      </h2>
 
-      <motion.p
-        custom={1}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="tracking-[0.15em] text-center text-transparent font-light pb-5 bg-clip-text bg-linear-to-r from-[#ef233c] to-[#f9bec7] text-base sm:text-lg"
-      >
+      <p className="project-reveal pb-5 text-center text-base font-light tracking-[0.15em] text-transparent bg-clip-text bg-linear-to-r from-[#ef233c] to-[#f9bec7] sm:text-lg">
         ดูรายละเอียดเพิ่มเติม
-      </motion.p>
+      </p>
 
-      <div className="mb-8 flex flex-wrap justify-center gap-2">
+      <div className="project-reveal mb-8 flex flex-wrap justify-center gap-2">
         {CATS.map((c) => (
           <button
             key={c}
@@ -173,14 +151,7 @@ const Projects = () => {
         ))}
       </div>
 
-      <motion.div
-        ref={stackRef}
-        key={cat}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="mx-auto max-w-6xl pb-24"
-      >
+      <div key={cat} className="mx-auto max-w-6xl pb-24">
         {filtered.map((project, index) => (
           <ProjectStackCard
             key={project.id}
@@ -189,7 +160,7 @@ const Projects = () => {
             total={filtered.length}
           />
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 };

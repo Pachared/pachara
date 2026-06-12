@@ -1,38 +1,34 @@
 import { useRef } from "react";
-import { SKILLS } from "../constants/SkillsConstants";
-import { TOOLS } from "../constants/SkillsConstants";
-import { DATABASES } from "../constants/SkillsConstants";
-import { CLOUDS } from "../constants/SkillsConstants";
-import { motion } from "framer-motion";
+import { CLOUDS, DATABASES, SKILLS, TOOLS } from "../constants/SkillsConstants";
 import { gsap, useGSAP } from "../lib/gsap";
+import { revealInSequence, shouldReduceMotion } from "../lib/motion";
 
-const fadeUpCustom = {
-  hidden: () => ({ opacity: 0, y: 30 }),
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut", delay: i * 0.1 },
-  }),
-};
-
-const AnimatedItemGroup = ({ data, extractItems }) => (
-  <div className="skill-group flex flex-wrap items-center justify-center gap-8 pt-2">
-    {data.map((item, index) => (
-      <div
-        key={index}
-        className="skill-icon rounded-3xl pl-3 pr-3 flex flex-col items-center transition-transform duration-300 hover:scale-110"
-      >
-        {extractItems(item).map((content, i) => (
-          <div
-            key={i}
-            className="skill-icon-body flex items-center justify-center"
-            aria-label={`Item icon`}
-          >
-            {content}
-          </div>
-        ))}
-      </div>
-    ))}
+const SkillSection = ({ title, data, extractItems }) => (
+  <div className="skill-section pt-20 first:pt-0">
+    <h1 className="skill-reveal mb-1 text-center text-3xl font-bold sm:text-4xl lg:text-6xl">
+      {title}
+    </h1>
+    <p className="skill-reveal pb-5 text-center text-base font-light tracking-[0.15em] text-transparent bg-clip-text bg-linear-to-r from-[#ef233c] to-[#f9bec7] sm:text-lg">
+      ดูรายละเอียดเพิ่มเติม
+    </p>
+    <div className="skill-group flex flex-wrap items-center justify-center gap-8 pt-2">
+      {data.map((item, index) => (
+        <div
+          key={index}
+          className="skill-icon rounded-3xl pl-3 pr-3 flex flex-col items-center transition-transform duration-300 hover:scale-110"
+        >
+          {extractItems(item).map((content, i) => (
+            <div
+              key={i}
+              className="skill-icon-body flex items-center justify-center"
+              aria-label="Item icon"
+            >
+              {content}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
   </div>
 );
 
@@ -41,12 +37,18 @@ const Skills = () => {
 
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) return;
+      if (shouldReduceMotion()) return;
 
-      gsap.utils.toArray(".skill-group").forEach((group) => {
-        const icons = gsap.utils.toArray(group.querySelectorAll(".skill-icon"));
-        const iconBodies = gsap.utils.toArray(group.querySelectorAll(".skill-icon-body"));
+      gsap.utils.toArray(".skill-section").forEach((section) => {
+        const revealItems = section.querySelectorAll(".skill-reveal");
+        const icons = section.querySelectorAll(".skill-icon");
+        const iconBodies = section.querySelectorAll(".skill-icon-body");
+
+        revealInSequence(gsap, revealItems, {
+          trigger: section,
+          start: "top 82%",
+          stagger: 0.1,
+        });
 
         gsap.fromTo(
           icons,
@@ -79,7 +81,7 @@ const Skills = () => {
             },
             clearProps: "transform,filter,opacity,visibility",
             scrollTrigger: {
-              trigger: group,
+              trigger: section.querySelector(".skill-group"),
               start: "top 82%",
               once: true,
             },
@@ -106,152 +108,17 @@ const Skills = () => {
   return (
     <section
       ref={skillsRef}
-      className="relative mx-auto w-full max-w-4xl flex flex-col pt-20 overflow-visible"
+      className="relative mx-auto w-full max-w-4xl flex flex-col pt-28 md:pt-32 overflow-visible"
       id="skills"
     >
-      {/* SKILL */}
-      <motion.h1
-        custom={0}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="mb-1 text-center text-3xl sm:text-4xl lg:text-6xl font-bold"
-      >
-        SKILL
-      </motion.h1>
-      <motion.p
-        custom={1}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="tracking-[0.15em] text-center text-transparent font-light pb-5 bg-clip-text bg-linear-to-r from-[#ef233c] to-[#f9bec7] text-base sm:text-lg"
-      >
-        ดูรายละเอียดเพิ่มเติม
-      </motion.p>
-      <motion.div
-        custom={2}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <AnimatedItemGroup
-          data={SKILLS}
-          extractItems={(item) => [
-            item.skill
-          ]}
-        />
-      </motion.div>
-
-      {/* TOOL */}
-      <motion.h1
-        custom={3}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="pt-20 mb-1 text-center text-3xl sm:text-4xl lg:text-6xl font-bold"
-      >
-        TOOL
-      </motion.h1>
-      <motion.p
-        custom={4}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="tracking-[0.15em] text-center text-transparent font-light pb-5 bg-clip-text bg-linear-to-r from-[#ef233c] to-[#f9bec7] text-base sm:text-lg"
-      >
-        ดูรายละเอียดเพิ่มเติม
-      </motion.p>
-      <motion.div
-        custom={5}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <AnimatedItemGroup
-          data={TOOLS}
-          extractItems={(item) => [
-            item.tool
-          ]}
-        />
-      </motion.div>
-
-      {/* DATABASE */}
-      <motion.h1
-        custom={6}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="pt-20 mb-1 text-center text-3xl sm:text-4xl lg:text-6xl font-bold"
-      >
-        DATABASE
-      </motion.h1>
-      <motion.p
-        custom={7}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="tracking-[0.15em] text-center text-transparent font-light pb-5 bg-clip-text bg-linear-to-r from-[#ef233c] to-[#f9bec7] text-base sm:text-lg"
-      >
-        ดูรายละเอียดเพิ่มเติม
-      </motion.p>
-      <motion.div
-        custom={8}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <AnimatedItemGroup
-          data={DATABASES}
-          extractItems={(item) => [
-            item.database
-          ]}
-        />
-      </motion.div>
-
-      {/* CLOUD */}
-      <motion.h1
-        custom={6}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="pt-20 mb-1 text-center text-3xl sm:text-4xl lg:text-6xl font-bold"
-      >
-        CLOUD
-      </motion.h1>
-      <motion.p
-        custom={7}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="tracking-[0.15em] text-center text-transparent font-light pb-5 bg-clip-text bg-linear-to-r from-[#ef233c] to-[#f9bec7] text-base sm:text-lg"
-      >
-        ดูรายละเอียดเพิ่มเติม
-      </motion.p>
-      <motion.div
-        custom={8}
-        variants={fadeUpCustom}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <AnimatedItemGroup
-          data={CLOUDS}
-          extractItems={(item) => [
-            item.cloud
-          ]}
-        />
-      </motion.div>
+      <SkillSection title="SKILL" data={SKILLS} extractItems={(item) => [item.skill]} />
+      <SkillSection title="TOOL" data={TOOLS} extractItems={(item) => [item.tool]} />
+      <SkillSection
+        title="DATABASE"
+        data={DATABASES}
+        extractItems={(item) => [item.database]}
+      />
+      <SkillSection title="CLOUD" data={CLOUDS} extractItems={(item) => [item.cloud]} />
     </section>
   );
 };

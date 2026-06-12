@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { HERO } from "../constants/HeroConstants";
 import pachara from "/pachara.jpg";
 import { gsap, useGSAP } from "../lib/gsap";
+import { shouldReduceMotion } from "../lib/motion";
 
 const Hero = ({ introDone }) => {
   const heroRef = useRef(null);
@@ -11,23 +12,25 @@ const Hero = ({ introDone }) => {
     () => {
       if (!introDone) return;
 
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) return;
+      if (shouldReduceMotion()) return;
+
+      gsap.set(".hero-copy", { autoAlpha: 0, y: 42 });
+      gsap.set(".hero-image", { autoAlpha: 0, scale: 0.92, y: 34 });
 
       gsap
         .timeline({ defaults: { ease: "power3.out" } })
-        .from(".hero-copy", {
-          autoAlpha: 0,
-          y: 42,
+        .to(".hero-copy", {
+          autoAlpha: 1,
+          y: 0,
           duration: 0.75,
           stagger: 0.12,
         })
-        .from(
+        .to(
           ".hero-image",
           {
-            autoAlpha: 0,
-            scale: 0.92,
-            y: 34,
+            autoAlpha: 1,
+            scale: 1,
+            y: 0,
             duration: 0.85,
           },
           "-=0.45",
