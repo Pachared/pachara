@@ -37,16 +37,9 @@ const ProjectStackCard = ({ project, index, total }) => {
             fetchPriority={shouldLoadEarly ? "high" : "auto"}
           />
           <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent lg:bg-linear-to-r lg:from-transparent lg:via-black/10 lg:to-black/80" />
-          <div className="absolute left-5 top-5 rounded-full border border-white/15 bg-black/50 px-4 py-1 text-xs font-semibold text-white/80 backdrop-blur-md">
-            {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-          </div>
         </div>
 
         <div className="flex flex-col justify-center px-5 py-7 sm:px-8 lg:px-10">
-          <div className="mb-4 w-fit rounded-full border border-white/15 bg-[#ef233c]/10 px-4 py-1 text-xs font-semibold text-[#f9bec7]">
-            {project.category}
-          </div>
-
           <h3 className="whitespace-pre-line text-2xl font-bold leading-tight text-white sm:text-3xl lg:text-4xl">
             {project.name}
           </h3>
