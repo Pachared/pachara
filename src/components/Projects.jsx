@@ -26,8 +26,8 @@ const ProjectStackCard = ({ project, index, total }) => {
       }}
       className="project-stack-card sticky mb-24 overflow-hidden rounded-3xl border border-white/15 bg-black/90 shadow-xl shadow-black/40 backdrop-blur-md transform-gpu will-change-transform sm:mb-28 lg:mb-32"
     >
-      <div className="project-stack-card-inner grid min-h-[620px] grid-cols-1 lg:min-h-[520px] lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="relative min-h-[300px] overflow-hidden lg:min-h-full">
+      <div className="project-stack-card-inner grid min-h-155 grid-cols-1 lg:min-h-130 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="relative min-h-75 overflow-hidden lg:min-h-full">
           <img
             src={project.image}
             alt={project.name}
