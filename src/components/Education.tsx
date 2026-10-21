@@ -1,3 +1,4 @@
+import SectionHeadingText from "./SectionHeadingText";
 import { useRef } from "react";
 import { EDUCATION } from "../constants/EducationConstants";
 import { gsap, useGSAP } from "../lib/gsap";
@@ -21,8 +22,8 @@ const Education = () => {
         <section ref={educationRef} className="pt-20" id="education">
             <div className="max-w-3xl sm:max-w-4xl mx-auto">
                 {/* หัวข้อ */}
-                <h1 className="education-reveal mb-1 text-center text-3xl sm:text-4xl lg:text-6xl font-bold">
-                    EDUCATION
+                <h1 className="mb-1 text-center text-3xl sm:text-4xl lg:text-6xl font-bold">
+                    <SectionHeadingText text="EDUCATION" />
                 </h1>
 
                 {/* ข้อความ */}
@@ -46,7 +47,7 @@ const Education = () => {
                                         <span className="font-medium">{edu.institution}</span>
                                     </p>
                                     <p className="text-sm text-gray-400 italic">{edu.duration}</p>
-                                    <p className="mt-3 text-gray-300 leading-relaxed text-sm sm:text-base">
+                                    <p className="mt-3 text-base leading-relaxed text-gray-300">
                                         {edu.description}
                                     </p>
                                 </div>

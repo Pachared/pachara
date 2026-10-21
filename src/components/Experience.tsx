@@ -48,7 +48,7 @@ const Experience = () => {
                                     </p>
                                     <p className="text-sm text-gray-400 italic">{exp.duration}</p>
 
-                                    <p className="mt-3 text-gray-300 leading-relaxed text-sm sm:text-base">
+                                    <p className="mt-3 text-base leading-relaxed text-gray-300">
                                         {exp.description}
                                     </p>
                                 </div>

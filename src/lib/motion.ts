@@ -20,6 +20,7 @@ type RevealOptions = {
   duration?: number;
   stagger?: number;
   ease?: string;
+  delay?: number;
 };
 
 export const shouldReduceMotion = () =>
@@ -30,11 +31,12 @@ export const revealInSequence = (
   targets: RevealTarget,
   {
     trigger,
-    start = "top 78%",
-    y = 34,
-    duration = 0.65,
-    stagger = 0.1,
+    start = "clamp(top 90%)",
+    y = 22,
+    duration = 0.75,
+    stagger = 0.12,
     ease = "power3.out",
+    delay = 0,
   }: RevealOptions = {},
 ) => {
   const items = gsap.utils.toArray<Element>(targets);
@@ -48,6 +50,8 @@ export const revealInSequence = (
     duration,
     ease,
     stagger,
+    delay,
+    clearProps: "transform",
     scrollTrigger: {
       trigger: trigger || items[0],
       start,

@@ -1,16 +1,18 @@
-import { FaGithub, FaFacebook, FaInstagram } from "react-icons/fa6";
 
 export const SOCIAL_MEDIA_LINKS = [
   {
     href: "https://www.facebook.com/pacharaaaaaaa",
-    icon: <FaFacebook fontSize={50} className="hover:opacity-80" />,
+    name: "Facebook",
+    icon: <img src="/image/social/facebook.svg" alt="" width={50} height={50} draggable={false} className="h-12.5 w-12.5 object-contain" />,
   },
   {
     href: "https://www.instagram.com/axm.pcr/",
-    icon: <FaInstagram fontSize={50} className="hover:opacity-80" />,
+    name: "Instagram",
+    icon: <img src="/image/social/instagram.svg" alt="" width={50} height={50} draggable={false} className="h-12.5 w-12.5 object-contain" />,
   },
   {
     href: "https://github.com/Pachared",
-    icon: <FaGithub fontSize={50} className="hover:opacity-80" />,
+    name: "GitHub",
+    icon: <img src="/image/social/github-dark.svg" alt="" width={50} height={50} draggable={false} className="h-12.5 w-12.5 object-contain" />,
   },
 ];

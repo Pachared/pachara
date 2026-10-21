@@ -45,7 +45,7 @@ export const PROJECTS: Project[] = [
     name: "แอปพลิเคชันเดสก์ท็อป PivotZone",
     category: "Desktop",
     description:
-      "เครื่องมือวิเคราะห์หุ้นที่ใช้งานง่าย เหมาะสำหรับนักลงทุนทุกระดับ พัฒนาโดย Python และ Tkinter พร้อมอินเทอร์เฟซเรียบง่าย ทำงานรวดเร็ว และดึงข้อมูลแบบเรียลไทม์จาก Yahoo Finance เพื่อช่วยให้คุณตัดสินใจลงทุนได้อย่างแม่นยำยิ่งขึ้น มาพร้อมกราฟสวยคมชัดและฟีเจอร์ครบครันในแอปเดียว",
+      "เครื่องมือวิเคราะห์หุ้นสำหรับนักลงทุน พัฒนาด้วย Python และ Tkinter พร้อมข้อมูลเรียลไทม์จาก Yahoo Finance และกราฟที่ใช้งานง่าย",
     image: PIVOTZONE,
     githubLink: "https://github.com/Pachared/PivotZone",
     stackIcons: [
@@ -57,7 +57,7 @@ export const PROJECTS: Project[] = [
     name: "ระบบจัดการร้านค้า SCI_NEXT \n (โครงการในมหาวิทยาลัย)",
     category: "Fullstack",
     description:
-      "ระบบบริหารจัดการร้านค้าแบบครบวงจร พัฒนาขึ้นในโครงการภายในมหาวิทยาลัย โดยมีเป้าหมายเพื่อเพิ่มประสิทธิภาพการจัดเก็บข้อมูลสินค้า การขาย และการจัดการสต๊อกให้เป็นระบบมากขึ้น ผ่านเทคโนโลยีสมัยใหม่และโครงสร้างระบบที่ใช้งานง่าย",
+      "ระบบจัดการร้านค้าสำหรับโครงการภายในมหาวิทยาลัย ช่วยจัดเก็บข้อมูลสินค้า การขาย และสต๊อกอย่างเป็นระบบ ด้วยเทคโนโลยีที่ใช้งานง่าย",
     image: StoreManagementSystemSCI_NEXT,
     githubLink: "https://github.com/Pachared/sci-stock-app",
     stackIcons: [
@@ -75,7 +75,7 @@ export const PROJECTS: Project[] = [
     name: "ระบบคลาวด์ Nova",
     category: "Fullstack",
     description:
-      "เป็น Cloud Platform สำหรับการ Deploy โปรเจกต์จาก GitHub Repository ซึ่งพัฒนาขึ้นเพื่อวัตถุประสงค์ทางการศึกษาเท่านั้น ไม่ได้มีการนำไปใช้งานเชิงพาณิชย์หรือเปิดให้บริการจริง โดยมีฟีเจอร์หลัก ๆ เช่น การเชื่อมต่อกับ GitHub และการจัดการโปรเจกต์ผ่านแดชบอร์ดที่ใช้งานง่าย",
+      "Cloud Platform สำหรับ Deploy โปรเจกต์จาก GitHub Repository เพื่อการศึกษา พร้อมเชื่อมต่อ GitHub และจัดการโปรเจกต์ผ่านแดชบอร์ด",
     image: Novacloud,
     githubLink: "https://github.com/Pachared/Nova",
     stackIcons: [

@@ -1,3 +1,4 @@
+import SectionHeadingText from "./SectionHeadingText";
 import { useRef } from "react";
 import { ABOUT } from "../constants/AboutConstants";
 import { gsap, useGSAP } from "../lib/gsap";
@@ -21,8 +22,8 @@ const About = () => {
   return (
     <section ref={aboutRef} className="flex max-w-4xl flex-col pt-20" id="about">
       {/* ABOUT ME */}
-      <h2 className="about-reveal mb-1 text-center text-3xl sm:text-4xl lg:text-6xl font-bold">
-        ABOUT ME
+      <h2 className="mb-1 text-center text-3xl sm:text-4xl lg:text-6xl font-bold">
+        <SectionHeadingText text="ABOUT ME" />
       </h2>
 
       {/* ดูรายละเอียดเพิ่มเติม */}
@@ -35,7 +36,7 @@ const About = () => {
         {ABOUT.map((text, index) => (
           <p
             key={index}
-            className="about-reveal mb-4 text-xs sm:text-sm md:text-base font-light"
+            className="about-reveal mb-4 text-base font-normal leading-relaxed"
           >
             {text}
           </p>

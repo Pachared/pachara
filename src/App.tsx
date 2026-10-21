@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { LayoutGroup } from "framer-motion";
 
 import Hero from "./components/Hero";
@@ -14,12 +14,15 @@ const StarsCanvas = lazy(() => import("./style/StarsBackground"));
 
 const App = () => {
   const [loading, setLoading] = useState(true);
+  const [introSettled, setIntroSettled] = useState(false);
+  const finishIntro = useCallback(() => setIntroSettled(true), []);
   const [useWebGlBackground, setUseWebGlBackground] = useState(false);
 
-  useSmoothScroll(!loading);
+  useSmoothScroll(introSettled);
 
   useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 2400);
+    const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 2400 : 3000;
+    const t = setTimeout(() => setLoading(false), duration);
     return () => clearTimeout(t);
   }, []);
 
@@ -36,22 +39,22 @@ const App = () => {
   return (
     <LayoutGroup id="pachara-intro">
       <div className="relative bg-cover bg-center bg-img">
-        <LoadingOverlay open={loading} />
+        <LoadingOverlay open={loading} onExitComplete={finishIntro} />
 
-        {!loading && useWebGlBackground && (
+        {introSettled && useWebGlBackground && (
           <Suspense fallback={null}>
             <StarsCanvas />
           </Suspense>
         )}
 
-        <div className="relative z-10 flex flex-col items-center p-6 container mx-auto">
-          <Hero introDone={!loading} />
+        <div className="relative z-10 flex flex-col items-center px-6 pt-6 container mx-auto select-none">
+          <Hero introDone={!loading} contentReady={introSettled} />
           <AboutEducation />
           <Projects />
           <Skills />
           <Contact />
-          <Footer />
         </div>
+        <Footer />
       </div>
     </LayoutGroup>
   );
