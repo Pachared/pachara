@@ -71,15 +71,13 @@ const Skills = () => {
       });
 
       const media = gsap.matchMedia();
-      if (navigator.maxTouchPoints === 0) {
-        media.add("(min-width: 1280px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
-          gsap.utils.toArray<HTMLElement>(".skill-group").forEach(group => {
-            const icons = group.querySelectorAll<HTMLElement>(".skill-icon-body");
-            if (!icons.length) return;
-            animateFloatingIcons(group, icons);
-          });
+      media.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.utils.toArray<HTMLElement>(".skill-group").forEach(group => {
+          const icons = group.querySelectorAll<HTMLElement>(".skill-icon-body");
+          if (!icons.length) return;
+          animateFloatingIcons(group, icons);
         });
-      }
+      });
       return () => media.revert();
     },
     { scope: skillsRef },

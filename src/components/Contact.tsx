@@ -17,33 +17,9 @@ const Contact = () => {
             });
 
             const media = gsap.matchMedia();
-            media.add({
-                desktop: "(min-width: 1280px) and (hover: hover) and (pointer: fine)",
-                motion: "(prefers-reduced-motion: no-preference)",
-            }, context => {
-                if (!context.conditions?.motion) return;
+            media.add("(prefers-reduced-motion: no-preference)", () => {
                 const group = contactRef.current!.querySelector<HTMLElement>(".contact-icons")!;
-                if (context.conditions.desktop && navigator.maxTouchPoints === 0) {
-                    animateFloatingIcons(group, group.querySelectorAll<HTMLElement>(".contact-icon-motion"));
-                    return;
-                }
-            gsap.set(".contact-icon-motion", { autoAlpha: 0, y: 18, scale: 0.98 });
-
-            gsap.to(".contact-icon-motion", {
-                autoAlpha: 1,
-                y: 0,
-                scale: 1,
-                duration: 0.7,
-                delay: 0.25,
-                ease: "power3.out",
-                stagger: 0.12,
-                clearProps: "transform",
-                scrollTrigger: {
-                    trigger: ".contact-icons",
-                    start: "clamp(top 90%)",
-                    once: true,
-                },
-            });
+                animateFloatingIcons(group, group.querySelectorAll<HTMLElement>(".contact-icon-motion"));
             });
             return () => media.revert();
         },

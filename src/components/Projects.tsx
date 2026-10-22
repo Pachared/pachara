@@ -2,7 +2,7 @@ import SectionHeadingText from "./SectionHeadingText";
 import { useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { PROJECTS } from "../constants/ProjectConstants";
-import { gsap, useGSAP } from "../lib/gsap";
+import { gsap, ScrollTrigger, useGSAP } from "../lib/gsap";
 import { revealInSequence, shouldReduceMotion } from "../lib/motion";
 import type { Project, ProjectCategory } from "../types";
 
@@ -77,6 +77,10 @@ const ProjectStackCard = ({ project, index, total }: ProjectStackCardProps) => {
 const Projects = () => {
   const [cat, setCat] = useState<ProjectCategory>("All");
   const projectsRef = useRef<HTMLElement | null>(null);
+  const listRef = useRef<HTMLDivElement | null>(null);
+  const listFrameRef = useRef<HTMLDivElement | null>(null);
+  const isFiltering = useRef(false);
+  const previousHeight = useRef(0);
 
   const normalized = useMemo(() => {
     return PROJECTS.map((p) => ({
@@ -90,10 +94,6 @@ const Projects = () => {
     return normalized.filter((p) => p.category === cat);
   }, [cat, normalized]);
 
-  const handleChangeCat = (next: ProjectCategory) => {
-    setCat(next);
-  };
-
   useGSAP(
     () => {
       if (shouldReduceMotion()) return;
@@ -101,11 +101,58 @@ const Projects = () => {
       revealInSequence(gsap, ".project-reveal", {
         trigger: projectsRef.current,
       });
+    },
+    { scope: projectsRef },
+  );
+
+  const handleChangeCat = (next: ProjectCategory) => {
+    if (next === cat) return;
+    const frame = listFrameRef.current;
+    if (!frame) return;
+
+    previousHeight.current = frame.getBoundingClientRect().height;
+    gsap.killTweensOf(frame);
+    isFiltering.current = true;
+    setCat(next);
+  };
+
+  useGSAP(
+    () => {
+      const list = listRef.current;
+      const frame = listFrameRef.current;
+      if (!list || !frame) return;
+      if (shouldReduceMotion()) {
+        gsap.set([list, frame], { clearProps: "height,overflow,transform,opacity,visibility" });
+        ScrollTrigger.refresh();
+        return;
+      }
+
+      const filtering = isFiltering.current;
+      if (filtering) {
+        gsap.set(frame, { height: previousHeight.current, overflow: "clip" });
+        gsap.fromTo(list, { y: 24 }, {
+          y: 0,
+          duration: 0.45,
+          ease: "power3.out",
+          clearProps: "transform",
+        });
+        gsap.to(frame, {
+          height: list.getBoundingClientRect().height,
+          duration: 0.45,
+          ease: "power2.inOut",
+          clearProps: "height,overflow",
+          onComplete: () => {
+            isFiltering.current = false;
+            ScrollTrigger.refresh();
+          },
+        });
+      }
 
       const cards = gsap.utils.toArray<HTMLElement>(".project-stack-card");
       const cardBodies = gsap.utils.toArray<HTMLElement>(".project-stack-card-inner");
 
       cardBodies.forEach((cardBody) => {
+        if (filtering) return;
         revealInSequence(gsap, cardBody, {
           trigger: cardBody,
           start: "top 88%",
@@ -148,8 +195,9 @@ const Projects = () => {
             key={c}
             type="button"
             onClick={() => handleChangeCat(c)}
+            aria-pressed={c === cat}
             className={[
-              "cursor-pointer rounded-lg px-5 py-2 text-sm font-semibold transition-all duration-300 ease-in-out",
+              "cursor-pointer rounded-lg px-5 py-2 text-sm font-semibold transition-colors duration-300 ease-in-out",
               "border border-white/15",
               c === cat
                 ? "bg-white text-black"
@@ -162,7 +210,8 @@ const Projects = () => {
       </div>
 
       {/* A shared gap keeps every sticky margin box equal, including the last card. */}
-      <div key={cat} className="mx-auto flex max-w-6xl flex-col gap-24 sm:gap-28 lg:gap-32">
+      <div ref={listFrameRef} className="mx-auto max-w-6xl [overflow-anchor:none]">
+      <div ref={listRef} className="flex flex-col gap-24 sm:gap-28 lg:gap-32">
         {filtered.map((project, index) => (
           <ProjectStackCard
             key={project.id}
@@ -171,6 +220,7 @@ const Projects = () => {
             total={filtered.length}
           />
         ))}
+      </div>
       </div>
     </section>
   );

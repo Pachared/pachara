@@ -60,7 +60,7 @@ const Hero = ({ introDone, contentReady }: HeroProps) => {
   return (
     <section
       ref={heroRef}
-      className="flex flex-wrap min-h-screen items-center px-2 py-10 md:px-16 lg:px-24"
+      className="flex flex-wrap min-h-screen items-center px-2 py-10 md:px-0 xl:px-24"
     >
       {/* Text Content */}
       <div className="w-full text-center md:w-1/2 md:text-left">
